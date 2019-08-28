@@ -1,5 +1,11 @@
+const {getReadlineInterface} = require('../console-helper/utils');
 
-test('game console-helper utils test start......', () => {
+test('define readline interface', async () => {
 
-    expect(true).toBe(true);
+    const data = await getReadlineInterface();
+    expect(data).toBeDefined();
+});
+
+test('clear console.', () => {
+
 });

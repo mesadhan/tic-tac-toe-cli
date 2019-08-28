@@ -4,11 +4,10 @@ const getReadlineInterface = () => {
    return readline.createInterface({
         input: process.stdin,
         output: process.stdout
-    });
+   });
 };
 
-const clearScreen = () => {
-
+const clearConsole = () => {
     readline.cursorTo(process.stdout, 0, 0);
     readline.clearScreenDown(process.stdout);
 };
@@ -16,5 +15,5 @@ const clearScreen = () => {
 
 module.exports = {
     getReadlineInterface,
-    clearScreen,
+    clearConsole,
 };
