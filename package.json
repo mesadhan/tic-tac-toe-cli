@@ -4,9 +4,8 @@
   "description": "tic-tac-toe-cli : Console base game",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    "start": "./index.js",
-    "run": "./index.js"
+    "test": "jest",
+    "start": "node index.js"
   },
   "bin": {
     "tic-tac-toe-cli": "./index.js"
@@ -23,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/mesadhan/tic-tac-toe-cli/issues"
   },
-  "homepage": "https://github.com/mesadhan/tic-tac-toe-cli#readme"
+  "homepage": "https://github.com/mesadhan/tic-tac-toe-cli#readme",
+  "dependencies": {
+    "jest": "^24.9.0"
+  }
 }

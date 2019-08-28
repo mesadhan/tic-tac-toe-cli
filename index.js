@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-const {appInitialize} = require('./app/apps');
+const {appInitialize} = require('./src/apps.js');
 appInitialize();

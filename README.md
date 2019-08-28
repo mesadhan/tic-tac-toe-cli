@@ -4,6 +4,15 @@
 Console Base Game.
 
 
+
+# Application Installation Process
+
+    npm install
+    npm test
+    
+
+
+
 # Dependencies Reference
 
-npm i --save jest
+    npm i --save jest
