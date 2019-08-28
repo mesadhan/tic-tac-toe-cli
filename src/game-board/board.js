@@ -1,5 +1,7 @@
 const {
     clearConsole,
+    getPlayer1,
+    getPlayer2,
 } = require('../console-helper/utils');
 
 const board = [
@@ -8,42 +10,61 @@ const board = [
     [null, null, null],
 ];
 
-const drawGameBoard = () => {
-    clearConsole();
+const number = 3;
 
-    const n = 3;
-    let boardStr = '';
-    for (let i = 0; i < n; i += 1) {
-        for (let j = 0; j < n; j += 1) {
-            const curr = board[i][j];
-            if (curr === 'x') {
+const drawGameBoard = () => {
+    //clearConsole();
+
+
+    let boardSymbol = '';
+    for (let i = 0; i < number; i += 1) {
+        for (let j = 0; j < number; j += 1) {
+            const currentCursor = board[i][j];
+            if (currentCursor === getPlayer1()) {
                 if (j === 1) {
-                    boardStr += '| X |';
+                    boardSymbol += '| X |';
                 } else {
-                    boardStr += ' X ';
+                    boardSymbol += ' X ';
                 }
-            } else if (curr === 'o') {
+            } else if (currentCursor === getPlayer2()) {
                 if (j === 1) {
-                    boardStr += '| O |';
+                    boardSymbol += '| O |';
                 } else {
-                    boardStr += ' O ';
+                    boardSymbol += ' O ';
                 }
             } else {
                 if (j === 1) {
-                    boardStr += '| - |';
+                    boardSymbol += '| - |';
                 } else {
-                    boardStr += ' - ';
+                    boardSymbol += ' - ';
                 }
             }
         }
         if (i !== 2) {
-            boardStr += '\n-----------\n';
+            boardSymbol += '\n-----------\n';
         }
     }
-    return boardStr;
+    return boardSymbol;
+};
+
+
+const checkRows = (player, boardIn = board) => {
+    for (let i = 0; i < number; i += 1) {
+        let check = true;
+        for (let j = 0; j < number; j += 1) {
+            if (boardIn[i][j] !== player) {
+                check = false;
+            }
+        }
+        if (check) {
+            return true;
+        }
+    }
+    return false;
 };
 
 
 module.exports = {
     drawGameBoard,
+    checkRows,
 };
