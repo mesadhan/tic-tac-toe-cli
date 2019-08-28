@@ -10,12 +10,7 @@ let takeInputForRow = (player) => {
 
         if (givenRow === '1' || givenRow === '2' || givenRow === '3') {
             row = parseInt(givenRow) - 1;
-
-            console.log('message', givenRow);
-            console.log('message', row);
-
             takeInputForColumn(player);
-
         } else {
             takeInputForRow(player);
         }
@@ -28,10 +23,7 @@ const takeInputForColumn = (player) => {
         if (givenColumn === '0' || givenColumn === '1' || givenColumn === '2') {
             column = parseInt(givenColumn) - 1;
 
-            console.log('message', givenColumn);
-            console.log('message', column);
-
-            takeInputForRow(player);
+            //todo: need to process row, column and player information
 
         } else {
             takeInputForColumn(player);

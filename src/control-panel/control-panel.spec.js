@@ -5,8 +5,8 @@ test(' taking Player1 X row & column input form user ', async () => {
     takeInputForColumn('X');
 });
 
-test(' taking Player2 Y row & column input form user ', async () => {
-    takeInputForRow('Y');
-    takeInputForColumn('Y');
+test(' taking Player2 O row & column input form user ', async () => {
+    takeInputForRow('O');
+    takeInputForColumn('O');
 });
 
