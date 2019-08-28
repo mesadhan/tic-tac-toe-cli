@@ -1,0 +1,27 @@
+{
+  "name": "tic-tac-toe-cli",
+  "version": "1.0.0",
+  "description": "tic-tac-toe-cli : Console base game",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "./index.js",
+    "run": "./index.js"
+  },
+  "bin": {
+    "tic-tac-toe-cli": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesadhan/tic-tac-toe-cli.git"
+  },
+  "keywords": [
+    "tic-tac-toe-cli"
+  ],
+  "author": "Md. Sadhan Sarker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mesadhan/tic-tac-toe-cli/issues"
+  },
+  "homepage": "https://github.com/mesadhan/tic-tac-toe-cli#readme"
+}
