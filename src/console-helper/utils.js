@@ -24,7 +24,7 @@ const getPlayer2 = () => {
 };
 
 const getPlayerNo = (player) => {
-    return (player === getPlayer1() || player !== getPlayer2()) ? 1 : 2;        // P1 = X | P2 = O
+    return (player === getPlayer1()) ? 1 : 2;        // P1 = X | P2 = O
 };
 
 
