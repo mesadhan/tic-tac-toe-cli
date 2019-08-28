@@ -11,8 +11,3 @@ Console Base Game.
     npm test
     
 
-
-
-# Dependencies Reference
-
-    npm i --save jest
