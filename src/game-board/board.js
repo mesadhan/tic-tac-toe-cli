@@ -63,8 +63,24 @@ const checkRows = (player, boardIn = board) => {
     return false;
 };
 
+const checkColumns = (player, boardIn = board) => {
+    for (let i = 0; i < number; i += 1) {
+        let check = true;
+        for (let j = 0; j < number; j += 1) {
+            if (boardIn[j][i] !== player) {
+                check = false;
+            }
+        }
+        if (check) {
+            return true;
+        }
+    }
+    return false;
+};
+
 
 module.exports = {
     drawGameBoard,
     checkRows,
+    checkColumns,
 };
