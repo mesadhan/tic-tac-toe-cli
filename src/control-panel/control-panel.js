@@ -1,8 +1,7 @@
-const {getReadlineInterface, clearScreen} = require('../util');
+const {getReadlineInterface, clearScreen} = require('../console-helper/utils');
 
 
 const controlPanel = () => {
-
 
     let row = null;
     let column = null;
