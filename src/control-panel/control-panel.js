@@ -1,5 +1,8 @@
 const {getReadlineInterface, clearConsole} = require('../console-helper/utils');
 
+let row = null;
+let column = null;
+
 const readlineInterface = getReadlineInterface();
 
 let takeInputForRow = (player) => {
@@ -38,9 +41,6 @@ const takeInputForColumn = (player) => {
 
 
 const controlPanel = () => {
-
-    let row = null;
-    let column = null;
 
     clearConsole();
     takeInputForRow('X');
