@@ -98,6 +98,10 @@ const placeSymbolInBoard = (row, column, playerSymbol) => {
     board[row][column] = playerSymbol;
 };
 
+const getBoard = () => {
+  return board;
+};
+
 module.exports = {
     drawGameBoard,
     checkRows,
@@ -105,4 +109,5 @@ module.exports = {
     checkDiagonally,
     checkAllTheWiningCases,
     placeSymbolInBoard,
+    getBoard,
 };

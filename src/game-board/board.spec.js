@@ -4,6 +4,8 @@ const {
     checkColumns,
     checkDiagonally,
     checkAllTheWiningCases,
+    placeSymbolInBoard,
+    getBoard,
 } = require('../game-board/board');
 
 
@@ -105,4 +107,19 @@ test('check all the wining cases', () => {
     expect(checkAllTheWiningCases(PS, board_1)).toBe(true);
     expect(checkAllTheWiningCases(PS, board_2)).toBe(true);
     expect(checkAllTheWiningCases(PS, board_3)).toBe(true);
+});
+
+test('place symbol in board', () => {
+
+    let playerSymbol = 'X';
+    let row = 1;
+    let column = 1;
+
+    let expectedPlayerSymbol = 'X';
+
+    placeSymbolInBoard(row, column, playerSymbol);          // put value in board
+    let board = getBoard();
+    let boardValue = board[row][column];
+
+    expect(expectedPlayerSymbol).toBe(boardValue);
 });
