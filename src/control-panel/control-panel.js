@@ -28,7 +28,7 @@ const takeInputForColumn = (player) => {
         if (givenColumn === '1' || givenColumn === '2' || givenColumn === '3') {
             column = parseInt(givenColumn) - 1;
 
-            //todo: need to process row, column and player information
+            processRowColumnAndPlayerInformation(row, column, player)
 
         } else {
             takeInputForColumn(player);
@@ -36,6 +36,13 @@ const takeInputForColumn = (player) => {
     });
 };
 
+
+const processRowColumnAndPlayerInformation = (row, column, player) => {
+
+    //todo: need to process row, column and player information
+
+
+};
 
 
 const controlPanel = () => {
