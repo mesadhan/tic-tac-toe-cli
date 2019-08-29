@@ -78,8 +78,14 @@ const checkColumns = (player, boardIn = board) => {
 };
 
 const checkDiagonally = (player, boardIn = board) => {
-    // todo : need to implement it
-    return true;
+
+    if (boardIn[0][0] === player && boardIn[1][1] === player && boardIn[2][2] === player) {
+        return true;
+    }
+    if (boardIn[0][2] === player && boardIn[1][1] === player && boardIn[2][0] === player) {
+        return true;
+    }
+    return false;
 };
 
 
