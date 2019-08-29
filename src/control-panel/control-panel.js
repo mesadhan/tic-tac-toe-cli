@@ -6,6 +6,12 @@ const {
     getPlayerNo
 } = require('../console-helper/utils');
 
+const {
+    placeSymbolInBoard,
+    drawGameBoard,
+    checkAllTheWiningCases,
+} = require('../game-board/board');
+
 let row = null;
 let column = null;
 const readlineInterface = getReadlineInterface();
@@ -30,6 +36,8 @@ const takeInputForColumn = (player) => {
 
             processRowColumnAndPlayerInformation(row, column, player)
 
+
+
         } else {
             takeInputForColumn(player);
         }
@@ -39,8 +47,21 @@ const takeInputForColumn = (player) => {
 
 const processRowColumnAndPlayerInformation = (row, column, player) => {
 
-    //todo: need to process row, column and player information
+    placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
+    console.log(drawGameBoard());                   // Draw game board in Console
 
+    let playerNo = getPlayerNo(player);
+
+    if (checkAllTheWiningCases(player)) {
+        console.log(`\nPlayer ${playerNo} - ${player} Wins The Game!`);
+        readlineInterface.close();
+        return;
+    }
+    if (player === getPlayer1()) {
+        takeInputForRow(getPlayer2());
+    } else {
+        takeInputForRow(getPlayer1());
+    }
 
 };
 
