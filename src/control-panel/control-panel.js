@@ -14,38 +14,49 @@ const {
 
 let row = null;
 let column = null;
+let boardSize = 3;
 const readlineInterface = getReadlineInterface();
 
-let takeInputForRow = (player) => {
+/**
+ * Ask Player for Row Position
+ * @param player
+ */
+let takeRow = (player) => {
     let playerNumber = getPlayerInformation(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1, 2, 3] :- `, (givenRow) => {
-        if (givenRow === '1' || givenRow === '2' || givenRow === '3') {
+        if(givenRow >= 1 && givenRow <= boardSize){
             row = parseInt(givenRow) - 1;
-            takeInputForColumn(player);
+            takeColumn(player);
         } else {
-            takeInputForRow(player);
+            takeRow(player);
         }
     });
 };
 
-const takeInputForColumn = (player) => {
+/**
+ * Ask Player for Column Position
+ * @param player
+ */
+const takeColumn = (player) => {
     let playerNumber = getPlayerInformation(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1, 2, 3] :- `, (givenColumn) => {
-        if (givenColumn === '1' || givenColumn === '2' || givenColumn === '3') {
+
+        if(givenColumn >= 1 && givenColumn <= boardSize){
             column = parseInt(givenColumn) - 1;
 
-            processRowColumnAndPlayerInformation(row, column, player)
-
-
+            processRowColumnAndPlayerInformation(player)
 
         } else {
-            takeInputForColumn(player);
+            takeColumn(player);
         }
     });
 };
 
-
-const processRowColumnAndPlayerInformation = (row, column, player) => {
+/**
+ * After taken input, process row, column and player information
+ * @param player
+ */
+const processRowColumnAndPlayerInformation = (player) => {
 
     placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
     console.log(drawGameBoard());                   // Draw game board in Console
@@ -53,26 +64,25 @@ const processRowColumnAndPlayerInformation = (row, column, player) => {
     let playerNo = getPlayerInformation(player);
 
     if (checkAllTheWiningCases(player)) {
-        console.log(`\nPlayer ${playerNo} - ${player} Wins The Game!`);
+        console.log(`\nPlayer ${playerNo} - ${player} | Wins The Game!`);
         readlineInterface.close();
         return;
     }
     if (player === getPlayer1()) {
-        takeInputForRow(getPlayer2());
+        takeRow(getPlayer2());              // After done Player 1 steps, Take Player 2 input
     } else {
-        takeInputForRow(getPlayer1());
+        takeRow(getPlayer1());              // Take Player 1 input
     }
-
 };
 
 
 const controlPanel = () => {
     clearConsole();
-    takeInputForRow(getPlayer1());
+    takeRow(getPlayer1());
 };
 
 module.exports = {
     controlPanel,
-    takeInputForRow,
-    takeInputForColumn,
+    takeRow,
+    takeColumn,
 };
