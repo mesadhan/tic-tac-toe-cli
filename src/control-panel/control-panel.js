@@ -19,8 +19,12 @@ const readlineInterface = getReadlineInterface();
 let boardSize = null;
 
 let takeInputForBoard = () => {
+
     readlineInterface.question(`[Enter Game Board Size]:- `, (givenBoardSize) => {
         boardSize = givenBoardSize;
+
+        // todo : need validation
+        setDefaultBoardSize(boardSize);
 
         takeInputForRow(getPlayer1());
     });
@@ -29,8 +33,9 @@ let takeInputForRow = (player) => {
     let playerNumber = getPlayerNo(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1 ..${boardSize}] :- `, (givenRow) => {
 
-            row = parseInt(givenRow) - 1;
-            takeInputForColumn(player);
+        // todo : need validation
+        row = parseInt(givenRow) - 1;
+        takeInputForColumn(player);
     });
 };
 
@@ -38,8 +43,9 @@ const takeInputForColumn = (player) => {
     let playerNumber = getPlayerNo(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1 ...${boardSize}] :- `, (givenColumn) => {
 
-            column = parseInt(givenColumn) - 1;
-            processRowColumnAndPlayerInformation(row, column, player)
+        // todo : need validation
+        column = parseInt(givenColumn) - 1;
+        processRowColumnAndPlayerInformation(row, column, player)
 
     });
 };
@@ -47,7 +53,7 @@ const takeInputForColumn = (player) => {
 
 const processRowColumnAndPlayerInformation = (row, column, player) => {
 
-    setDefaultBoardSize(boardSize);
+
     placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
     console.log(drawGameBoard());          // Draw game board in Console
 
