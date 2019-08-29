@@ -9,8 +9,6 @@ let number = null;
 
 const setDefaultBoardSize = (n) => {
 
-    console.log('message', n);
-
     board = new Array(n);
     for (let i = 0; i < n; i++) {
         board[i] = new Array(n);
@@ -125,6 +123,44 @@ const getBoard = () => {
     return board;
 };
 
+const computeComputerTurn = (board) => {
+
+    let boardSize = board.length - 1;
+
+    let rowIndex = Math.floor(Math.random() * boardSize);
+    let columnIndex = Math.floor(Math.random() * boardSize);
+
+
+    if (board[rowIndex][columnIndex] === 'X' || board[rowIndex][columnIndex] === 'O') {
+        return computeComputerTurn(board);
+
+    } else {
+        return {
+            rowIndex: rowIndex,
+            columnIndex: columnIndex,
+        }
+    }
+};
+const computerStepCorrection = (board) => {
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            if (board[i][j] !== 'X') {
+
+                if(board[i][j] !== 'O'){
+                    return {
+                        rowIndex: i,
+                        columnIndex: j,
+                    }
+                }
+            }
+        }
+
+    }
+
+};
+
+
 module.exports = {
     drawGameBoard,
     checkRows,
@@ -134,4 +170,6 @@ module.exports = {
     placeSymbolInBoard,
     getBoard,
     setDefaultBoardSize,
+    computeComputerTurn,
+    computerStepCorrection,
 };

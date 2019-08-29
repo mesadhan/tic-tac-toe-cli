@@ -11,6 +11,9 @@ const {
     drawGameBoard,
     checkAllTheWiningCases,
     setDefaultBoardSize,
+    computeComputerTurn,
+    getBoard,
+    computerStepCorrection,
 } = require('../game-board/board');
 
 let row = null;
@@ -65,7 +68,17 @@ const processRowColumnAndPlayerInformation = (row, column, player) => {
         return;
     }
     if (player === getPlayer1()) {
-        takeInputForRow(getPlayer2());
+
+        let board = getBoard();
+        let value = '';
+        try {
+            value = computeComputerTurn(board);
+            processRowColumnAndPlayerInformation(value.rowIndex, value.columnIndex, 'O')
+        }catch (e) {
+            value = computerStepCorrection(board);
+            processRowColumnAndPlayerInformation(value.rowIndex, value.columnIndex, 'O')
+        }
+
     } else {
         takeInputForRow(getPlayer1());
     }

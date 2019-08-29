@@ -7,6 +7,8 @@ const {
     placeSymbolInBoard,
     getBoard,
     setDefaultBoardSize,
+    computeComputerTurn,
+    computerStepCorrection,
 } = require('../game-board/board');
 
 
@@ -137,4 +139,24 @@ test('place symbol in board', () => {
     let boardValue = board[row][column];
 
     expect(expectedPlayerSymbol).toBe(boardValue);
+});
+
+
+
+test('compute computer turn', () => {
+
+    const board = [
+        ['X', 'O', 'X'],
+        ['O', 'O', 'X'],
+        ['O', 'X', null]
+    ];
+
+    let value = '';
+    try {
+        value = computeComputerTurn(board);
+        console.log('computeComputerTurn', value);
+    }catch (e) {
+        value = computerStepCorrection(board);
+        console.log('computerStepCorrection', value);
+    }
 });
