@@ -7,9 +7,9 @@ const {
 } = require('../console-helper/utils');
 
 const {
-    placeSymbolInBoard,
+    placePlayerSymbolInGameBoard,
     drawGameBoard,
-    checkAllTheWiningCases,
+    checkAllTheWinningCases,
 } = require('../game-board/board');
 
 let row = null;
@@ -58,12 +58,12 @@ const takeColumn = (player) => {
  */
 const processRowColumnAndPlayerInformation = (player) => {
 
-    placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
+    placePlayerSymbolInGameBoard(row, column, player);        // Put Player Symbol in Board
     console.log(drawGameBoard());                   // Draw game board in Console
 
     let playerNo = getPlayerInformation(player);
 
-    if (checkAllTheWiningCases(player)) {
+    if (checkAllTheWinningCases(player)) {
         console.log(`\nPlayer ${playerNo} - ${player} | Wins The Game!`);
         readlineInterface.close();
         return;

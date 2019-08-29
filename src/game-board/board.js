@@ -10,43 +10,53 @@ const board = [
     [null, null, null],
 ];
 
-const number = 3;
+const number = 3;        // Its fixed (3 x 3) board
 
+/**
+ * Draw Game Board, So base on user interaction console can be update
+ * @returns {string|string}
+ */
 const drawGameBoard = () => {
     clearConsole();
 
     let boardSymbol = '';
-    for (let i = 0; i < number; i += 1) {
-        for (let j = 0; j < number; j += 1) {
-            const currentCursor = board[i][j];
+    for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
+        for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
+            const currentCursor = board[rowIndex][columnIndex];
             if (currentCursor === getPlayer1()) {
-                if (j === 1) {
+                if (columnIndex === 1) {
                     boardSymbol += '| X |';
                 } else {
                     boardSymbol += ' X ';
                 }
             } else if (currentCursor === getPlayer2()) {
-                if (j === 1) {
+                if (columnIndex === 1) {
                     boardSymbol += '| O |';
                 } else {
                     boardSymbol += ' O ';
                 }
             } else {
-                if (j === 1) {
+                if (columnIndex === 1) {
                     boardSymbol += '| - |';
                 } else {
                     boardSymbol += ' - ';
                 }
             }
         }
-        if (i !== 2) {
+        if (rowIndex !== 2) {
             boardSymbol += '\n-----------\n';
         }
     }
     return boardSymbol;
 };
 
-const checkRows = (player, boardIn = board) => {
+/**
+ * Check all the rows to find out if winning cases exist
+ * @param player
+ * @param boardIn
+ * @returns {boolean}
+ */
+const checkAllRowsWinningCases = (player, boardIn = board) => {
     for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
         let check = true;
         for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
@@ -61,7 +71,13 @@ const checkRows = (player, boardIn = board) => {
     return false;
 };
 
-const checkColumns = (player, boardIn = board) => {
+/**
+ * Check all the columns to find out if winning cases exist
+ * @param player
+ * @param boardIn
+ * @returns {boolean}
+ */
+const checkAllColumnsWinningCases = (player, boardIn = board) => {
     for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
         let check = true;
         for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
@@ -76,7 +92,13 @@ const checkColumns = (player, boardIn = board) => {
     return false;
 };
 
-const checkDiagonally = (player, boardIn = board) => {
+/**
+ * Check all them diagonally to find out if winning cases exist
+ * @param player
+ * @param boardIn
+ * @returns {boolean}
+ */
+const checkAllDiagonallyWinningCases = (player, boardIn = board) => {
 
     if (boardIn[0][0] === player && boardIn[1][1] === player && boardIn[2][2] === player) {
         return true;
@@ -87,14 +109,26 @@ const checkDiagonally = (player, boardIn = board) => {
     return false;
 };
 
-const checkAllTheWiningCases = (player, boardIn = board) => {
-    if (checkRows(player, boardIn)) return true;
-    if (checkColumns(player, boardIn)) return true;
-    if (checkDiagonally(player, boardIn)) return true;
+/**
+ * Check all cases to find out if winning cases exist
+ * @param player
+ * @param boardIn
+ * @returns {boolean}
+ */
+const checkAllTheWinningCases = (player, boardIn = board) => {
+    if (checkAllRowsWinningCases(player, boardIn)) return true;
+    if (checkAllColumnsWinningCases(player, boardIn)) return true;
+    if (checkAllDiagonallyWinningCases(player, boardIn)) return true;
     return false;
 };
 
-const placeSymbolInBoard = (row, column, playerSymbol) => {
+/**
+ * Place Player Symbol (X or O) in game board
+ * @param row
+ * @param column
+ * @param playerSymbol
+ */
+const placePlayerSymbolInGameBoard = (row, column, playerSymbol) => {
     board[row][column] = playerSymbol;
 };
 
@@ -104,10 +138,10 @@ const getBoard = () => {
 
 module.exports = {
     drawGameBoard,
-    checkRows,
-    checkColumns,
-    checkDiagonally,
-    checkAllTheWiningCases,
-    placeSymbolInBoard,
+    checkAllRowsWinningCases,
+    checkAllColumnsWinningCases,
+    checkAllDiagonallyWinningCases,
+    checkAllTheWinningCases,
+    placePlayerSymbolInGameBoard,
     getBoard,
 };

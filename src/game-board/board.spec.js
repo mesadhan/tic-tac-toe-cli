@@ -1,10 +1,10 @@
 const {
     drawGameBoard,
-    checkRows,
-    checkColumns,
-    checkDiagonally,
-    checkAllTheWiningCases,
-    placeSymbolInBoard,
+    checkAllRowsWinningCases,
+    checkAllColumnsWinningCases,
+    checkAllDiagonallyWinningCases,
+    checkAllTheWinningCases,
+    placePlayerSymbolInGameBoard,
     getBoard,
 } = require('../game-board/board');
 
@@ -19,7 +19,7 @@ test('draw game board properly', async () => {
 });
 
 
-test('check row wins in board', () => {
+test('check all rows winning cases in board', () => {
     let PS = 'X';
 
     const board_1 = [[PS, PS, PS],
@@ -31,65 +31,65 @@ test('check row wins in board', () => {
                      [null, null, null]];
 
     const board_3 = [[null, null, null],
-                    [null, null, null],
-                    [PS, PS, PS]];
+                     [null, null, null],
+                     [PS, PS, PS]];
 
     const board_4 = [[PS, null, null],
                      [PS, null, null],
                      [PS, null, null]];
 
-    expect(checkRows(PS, board_1)).toBe(true);
-    expect(checkRows(PS, board_2)).toBe(true);
-    expect(checkRows(PS, board_3)).toBe(true);
-    expect(checkRows(PS, board_4)).toBe(false);
+    expect(checkAllRowsWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_3)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_4)).toBe(false);
 });
 
 
-test('check column wins in board', () => {
+test('check all columns winning cases in board', () => {
     let PS = 'X';
 
     const board_1 = [[PS, null, null],
-                    [PS, null, null],
-                    [PS, null, null]];
+                     [PS, null, null],
+                     [PS, null, null]];
 
     const board_2 = [[null, PS, null],
-                    [null, PS, null],
-                    [null, PS, null]];
+                     [null, PS, null],
+                     [null, PS, null]];
 
     const board_3 = [[null, null, PS],
-                    [null, null, PS],
-                    [null, null, PS]];
+                     [null, null, PS],
+                     [null, null, PS]];
 
     const board_4 = [[null, null, null],
-                    [null, null, null],
-                    [PS, PS, PS]];
+                     [null, null, null],
+                     [PS, PS, PS]];
 
-    expect(checkColumns(PS, board_1)).toBe(true);
-    expect(checkColumns(PS, board_2)).toBe(true);
-    expect(checkColumns(PS, board_3)).toBe(true);
-    expect(checkColumns(PS, board_4)).toBe(false);
+    expect(checkAllColumnsWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_3)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_4)).toBe(false);
 });
 
 
 
 
-test('check diagonally wins in board', () => {
+test('check all diagonally winning cases in board', () => {
 
     let PS = 'X';
     const board_1 = [[PS, null, null],
-                    [null, PS, null],
-                    [null, null, PS]];
+                     [null, PS, null],
+                     [null, null, PS]];
 
     const board_2 = [[null, null, PS],
-                    [null, PS, null],
-                    [PS, null, null]];
+                     [null, PS, null],
+                     [PS, null, null]];
 
-    expect(checkDiagonally(PS, board_1)).toBe(true);
-    expect(checkDiagonally(PS, board_2)).toBe(true);
+    expect(checkAllDiagonallyWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllDiagonallyWinningCases(PS, board_2)).toBe(true);
 });
 
 
-test('check all the wining cases', () => {
+test('check all the winning cases in board', () => {
 
     let PS = 'X';
     const board_1 = [[PS, PS, PS],
@@ -104,12 +104,12 @@ test('check all the wining cases', () => {
                      [null, PS, null],
                      [PS, null, null]];
 
-    expect(checkAllTheWiningCases(PS, board_1)).toBe(true);
-    expect(checkAllTheWiningCases(PS, board_2)).toBe(true);
-    expect(checkAllTheWiningCases(PS, board_3)).toBe(true);
+    expect(checkAllTheWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllTheWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllTheWinningCases(PS, board_3)).toBe(true);
 });
 
-test('place symbol in board', () => {
+test('place symbol in game board', () => {
 
     let playerSymbol = 'X';
     let row = 1;
@@ -117,7 +117,7 @@ test('place symbol in board', () => {
 
     let expectedPlayerSymbol = 'X';
 
-    placeSymbolInBoard(row, column, playerSymbol);          // put value in board
+    placePlayerSymbolInGameBoard(row, column, playerSymbol);          // put value in board
     let board = getBoard();
     let boardValue = board[row][column];
 
