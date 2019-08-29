@@ -46,7 +46,6 @@ const drawGameBoard = () => {
     return boardSymbol;
 };
 
-
 const checkRows = (player, boardIn = board) => {
     for (let i = 0; i < number; i += 1) {
         let check = true;
@@ -95,6 +94,9 @@ const checkAllTheWiningCases = (player, boardIn = board) => {
     return false;
 };
 
+const placeSymbolInBoard = (row, column, playerSymbol) => {
+    board[row][column] = playerSymbol;
+};
 
 module.exports = {
     drawGameBoard,
@@ -102,4 +104,5 @@ module.exports = {
     checkColumns,
     checkDiagonally,
     checkAllTheWiningCases,
+    placeSymbolInBoard,
 };
