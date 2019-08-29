@@ -1,36 +1,38 @@
 const {
     drawGameBoard,
-    checkRows,
-    checkColumns,
-    checkDiagonally,
-    checkAllTheWiningCases,
-    placeSymbolInBoard,
-    getBoard,
+    checkAllRowsWinningCases,
+    checkAllColumnsWinningCases,
+    checkAllDiagonallyWinningCases,
+    checkAllTheWinningCases,
+    placePlayerSymbolInGameBoard,
+    getGameBoard,
     gameBoardSetup,
-    computeComputerTurn,
+    computeComputerTurns,
     computerStepCorrection,
 } = require('../game-board/board');
 
+const {
+    getPlayer1,
+    getPlayer2,
+} = require('../console-helper/utils');
+
+
+gameBoardSetup(3);         // initial board size 3, for test purpose.
 
 test('draw game board properly', async () => {
 
-    gameBoardSetup(3);
+    // todo: test run properly but clear console so that commented it.
 
-    let expectedData = ` -  -  - \n---------\n -  -  - \n---------\n -  -  - \n---------\n`;
+   /* let expectedData = `\n---------\n -  -  - \n---------\n -  -  - \n---------\n -  -  - \n---------\n`;
     let data = await drawGameBoard();
-
     console.log(data);
-
-
-    //expect(expectedData).toBe(data);
+    expect(expectedData).toBe(data);*/
 });
 
 
-test('check row wins in board', () => {
+test('check all rows winning cases in board', () => {
+
     let PS = 'X';
-
-    gameBoardSetup(3);
-
 
     const board_1 = [[PS, PS, PS],
                      [null, null, null],
@@ -48,17 +50,15 @@ test('check row wins in board', () => {
                      [PS, null, null],
                      [PS, null, null]];
 
-    expect(checkRows(PS, board_1)).toBe(true);
-    expect(checkRows(PS, board_2)).toBe(true);
-    expect(checkRows(PS, board_3)).toBe(true);
-    expect(checkRows(PS, board_4)).toBe(false);
+    expect(checkAllRowsWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_3)).toBe(true);
+    expect(checkAllRowsWinningCases(PS, board_4)).toBe(false);
 });
 
 
-test('check column wins in board', () => {
+test('check all columns winning cases in board', () => {
     let PS = 'X';
-
-    gameBoardSetup(3);
 
     const board_1 = [[PS, null, null],
                     [PS, null, null],
@@ -76,20 +76,16 @@ test('check column wins in board', () => {
                     [null, null, null],
                     [PS, PS, PS]];
 
-    expect(checkColumns(PS, board_1)).toBe(true);
-    expect(checkColumns(PS, board_2)).toBe(true);
-    expect(checkColumns(PS, board_3)).toBe(true);
-    expect(checkColumns(PS, board_4)).toBe(false);
+    expect(checkAllColumnsWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_3)).toBe(true);
+    expect(checkAllColumnsWinningCases(PS, board_4)).toBe(false);
 });
 
 
-
-
-test('check diagonally wins in board', () => {
+test('check all diagonally winning cases in board', () => {
 
     let PS = 'X';
-
-    gameBoardSetup(3);
 
     const board_1 = [[PS, null, null],
                     [null, PS, null],
@@ -99,15 +95,14 @@ test('check diagonally wins in board', () => {
                     [null, PS, null],
                     [PS, null, null]];
 
-    expect(checkDiagonally(PS, board_1)).toBe(true);
-    expect(checkDiagonally(PS, board_2)).toBe(true);
+    expect(checkAllDiagonallyWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllDiagonallyWinningCases(PS, board_2)).toBe(true);
 });
 
 
-test('check all the wining cases', () => {
+test('check all the winning cases in board', () => {
 
     let PS = 'X';
-    gameBoardSetup(3);
 
     const board_1 = [[PS, PS, PS],
                      [null, null, null],
@@ -121,29 +116,29 @@ test('check all the wining cases', () => {
                      [null, PS, null],
                      [PS, null, null]];
 
-    expect(checkAllTheWiningCases(PS, board_1)).toBe(true);
-    expect(checkAllTheWiningCases(PS, board_2)).toBe(true);
-    expect(checkAllTheWiningCases(PS, board_3)).toBe(true);
-});
-
-test('place symbol in board', () => {
-
-    let playerSymbol = 'X';
-    let row = 1;
-    let column = 1;
-
-    let expectedPlayerSymbol = 'X';
-
-    placeSymbolInBoard(row, column, playerSymbol);          // put value in board
-    let board = getBoard();
-    let boardValue = board[row][column];
-
-    expect(expectedPlayerSymbol).toBe(boardValue);
+    expect(checkAllTheWinningCases(PS, board_1)).toBe(true);
+    expect(checkAllTheWinningCases(PS, board_2)).toBe(true);
+    expect(checkAllTheWinningCases(PS, board_3)).toBe(true);
 });
 
 
+test('place symbol in game board', () => {
 
-test('compute computer turn', () => {
+    let playerSymbol = getPlayer1();
+    let row = 1;                                // Player Row
+    let column = 1;                             // Player Column
+
+    let expectedPlayerSymbol = getPlayer1();
+
+    placePlayerSymbolInGameBoard(row, column, playerSymbol);          // place symbol in board
+    let gameBoard = getGameBoard();
+    let symbol = gameBoard[row][column];
+
+    expect(expectedPlayerSymbol).toBe(symbol);
+});
+
+
+test('compute computer turn, also correct step', () => {
 
     const board = [
         ['X', 'O', 'X'],
@@ -151,12 +146,15 @@ test('compute computer turn', () => {
         ['O', 'X', null]
     ];
 
-    let value = '';
+    let computerSteps = '';
+    let flag = false;
     try {
-        value = computeComputerTurn(board);
-        console.log('computeComputerTurn', value);
+        computerSteps = computeComputerTurns(board);
+        //console.log('computeComputerTurns', computerSteps);
     }catch (e) {
-        value = computerStepCorrection(board);
-        console.log('computerStepCorrection', value);
+        computerSteps = computerStepCorrection(board);
+        //console.log('computerStepCorrection', computerSteps);
+        flag = true;
     }
+    expect(true).toBe(flag);
 });
