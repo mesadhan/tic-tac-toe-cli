@@ -7,7 +7,7 @@ const {
 let board = null;
 let number = null;
 
-const setDefaultBoardSize = (n) => {
+const gameBoardSetup = (n) => {
 
     board = new Array(n);
     for (let i = 0; i < n; i++) {
@@ -169,7 +169,7 @@ module.exports = {
     checkAllTheWiningCases,
     placeSymbolInBoard,
     getBoard,
-    setDefaultBoardSize,
+    gameBoardSetup,
     computeComputerTurn,
     computerStepCorrection,
 };

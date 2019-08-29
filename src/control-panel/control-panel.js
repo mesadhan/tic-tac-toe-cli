@@ -2,7 +2,6 @@ const {
     getReadlineInterface,
     clearConsole,
     getPlayer1,
-    getPlayer2,
     getPlayerNo
 } = require('../console-helper/utils');
 
@@ -10,7 +9,7 @@ const {
     placeSymbolInBoard,
     drawGameBoard,
     checkAllTheWiningCases,
-    setDefaultBoardSize,
+    gameBoardSetup,
     computeComputerTurn,
     getBoard,
     computerStepCorrection,
@@ -26,8 +25,7 @@ let takeInputForBoard = () => {
     readlineInterface.question(`[Enter Game Board Size]:- `, (givenBoardSize) => {
         boardSize = givenBoardSize;
 
-        // todo : need validation
-        setDefaultBoardSize(boardSize);
+        gameBoardSetup(boardSize);
 
         takeInputForRow(getPlayer1());
     });
