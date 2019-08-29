@@ -4,13 +4,19 @@ const {
     getPlayer2,
 } = require('../console-helper/utils');
 
-const board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-];
+let board = null;
+let number = null;
 
-const number = 3;
+const setDefaultBoardSize = (n) => {
+
+    console.log('message', n);
+
+    board = new Array(n);
+    for (let i = 0; i < n; i++) {
+        board[i] = new Array(n);
+    }
+    number = n;
+};
 
 const drawGameBoard = () => {
     clearConsole();
@@ -20,33 +26,34 @@ const drawGameBoard = () => {
         for (let j = 0; j < number; j += 1) {
             const currentCursor = board[i][j];
             if (currentCursor === getPlayer1()) {
-                if (j === 1) {
-                    boardSymbol += '| X |';
-                } else {
-                    boardSymbol += ' X ';
-                }
+
+                boardSymbol += ' X ';
+
             } else if (currentCursor === getPlayer2()) {
-                if (j === 1) {
-                    boardSymbol += '| O |';
-                } else {
-                    boardSymbol += ' O ';
-                }
+
+                boardSymbol += ' O ';
             } else {
-                if (j === 1) {
-                    boardSymbol += '| - |';
+
+                if (j === 0 || j === (number - 1)) {
+                    boardSymbol += ' - ';
                 } else {
                     boardSymbol += ' - ';
                 }
             }
         }
-        if (i !== 2) {
-            boardSymbol += '\n-----------\n';
+
+        let tempShape = '\n';
+        for (let j = 0; j < number; j++) {
+            tempShape += '---';
         }
+        boardSymbol += tempShape + '\n';
+
     }
     return boardSymbol;
 };
 
 const checkRows = (player, boardIn = board) => {
+
     for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
         let check = true;
         for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
@@ -78,12 +85,28 @@ const checkColumns = (player, boardIn = board) => {
 
 const checkDiagonally = (player, boardIn = board) => {
 
-    if (boardIn[0][0] === player && boardIn[1][1] === player && boardIn[2][2] === player) {
-        return true;
+    let leftDiagonalCount = 0;
+    let rightDiagonalCount = 0;
+
+    for (let i = 0, k = number - 1; i < number; i++, k--) {
+
+        if (boardIn[i][i] === player) {
+            leftDiagonalCount++;
+        }
+
+        // right diagonal check
+        if (boardIn[i][k] === player) {
+            rightDiagonalCount++;
+        }
+
+        if (rightDiagonalCount === number) {
+            return true;
+        }
+        if (leftDiagonalCount === number) {
+            return true;
+        }
     }
-    if (boardIn[0][2] === player && boardIn[1][1] === player && boardIn[2][0] === player) {
-        return true;
-    }
+
     return false;
 };
 
@@ -99,7 +122,7 @@ const placeSymbolInBoard = (row, column, playerSymbol) => {
 };
 
 const getBoard = () => {
-  return board;
+    return board;
 };
 
 module.exports = {
@@ -110,4 +133,5 @@ module.exports = {
     checkAllTheWiningCases,
     placeSymbolInBoard,
     getBoard,
+    setDefaultBoardSize,
 };

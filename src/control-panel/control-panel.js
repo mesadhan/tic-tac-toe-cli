@@ -10,45 +10,46 @@ const {
     placeSymbolInBoard,
     drawGameBoard,
     checkAllTheWiningCases,
+    setDefaultBoardSize,
 } = require('../game-board/board');
 
 let row = null;
 let column = null;
 const readlineInterface = getReadlineInterface();
+let boardSize = null;
 
+let takeInputForBoard = () => {
+    readlineInterface.question(`[Enter Game Board Size]:- `, (givenBoardSize) => {
+        boardSize = givenBoardSize;
+
+        takeInputForRow(getPlayer1());
+    });
+};
 let takeInputForRow = (player) => {
     let playerNumber = getPlayerNo(player);
-    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1, 2, 3] :- `, (givenRow) => {
-        if (givenRow === '1' || givenRow === '2' || givenRow === '3') {
+    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1 ..${boardSize}] :- `, (givenRow) => {
+
             row = parseInt(givenRow) - 1;
             takeInputForColumn(player);
-        } else {
-            takeInputForRow(player);
-        }
     });
 };
 
 const takeInputForColumn = (player) => {
     let playerNumber = getPlayerNo(player);
-    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1, 2, 3] :- `, (givenColumn) => {
-        if (givenColumn === '1' || givenColumn === '2' || givenColumn === '3') {
-            column = parseInt(givenColumn) - 1;
+    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1 ...${boardSize}] :- `, (givenColumn) => {
 
+            column = parseInt(givenColumn) - 1;
             processRowColumnAndPlayerInformation(row, column, player)
 
-
-
-        } else {
-            takeInputForColumn(player);
-        }
     });
 };
 
 
 const processRowColumnAndPlayerInformation = (row, column, player) => {
 
+    setDefaultBoardSize(boardSize);
     placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
-    console.log(drawGameBoard());                   // Draw game board in Console
+    console.log(drawGameBoard());          // Draw game board in Console
 
     let playerNo = getPlayerNo(player);
 
@@ -68,7 +69,7 @@ const processRowColumnAndPlayerInformation = (row, column, player) => {
 
 const controlPanel = () => {
     clearConsole();
-    takeInputForRow(getPlayer1());
+    takeInputForBoard();
 };
 
 module.exports = {
