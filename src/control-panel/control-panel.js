@@ -3,7 +3,7 @@ const {
     clearConsole,
     getPlayer1,
     getPlayer2,
-    getPlayerNo
+    getPlayerInformation
 } = require('../console-helper/utils');
 
 const {
@@ -17,7 +17,7 @@ let column = null;
 const readlineInterface = getReadlineInterface();
 
 let takeInputForRow = (player) => {
-    let playerNumber = getPlayerNo(player);
+    let playerNumber = getPlayerInformation(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1, 2, 3] :- `, (givenRow) => {
         if (givenRow === '1' || givenRow === '2' || givenRow === '3') {
             row = parseInt(givenRow) - 1;
@@ -29,7 +29,7 @@ let takeInputForRow = (player) => {
 };
 
 const takeInputForColumn = (player) => {
-    let playerNumber = getPlayerNo(player);
+    let playerNumber = getPlayerInformation(player);
     readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1, 2, 3] :- `, (givenColumn) => {
         if (givenColumn === '1' || givenColumn === '2' || givenColumn === '3') {
             column = parseInt(givenColumn) - 1;
@@ -50,7 +50,7 @@ const processRowColumnAndPlayerInformation = (row, column, player) => {
     placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
     console.log(drawGameBoard());                   // Draw game board in Console
 
-    let playerNo = getPlayerNo(player);
+    let playerNo = getPlayerInformation(player);
 
     if (checkAllTheWiningCases(player)) {
         console.log(`\nPlayer ${playerNo} - ${player} Wins The Game!`);
