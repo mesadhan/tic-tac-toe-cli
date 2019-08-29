@@ -2,6 +2,7 @@ const {
     drawGameBoard,
     checkRows,
     checkColumns,
+    checkDiagonally,
 } = require('../game-board/board');
 
 
@@ -68,3 +69,17 @@ test('check column wins in board', () => {
 
 
 
+
+test('check diagonally wins in board', () => {
+    let PS = 'X';
+    const board_1 = [[PS, null, null],
+                    [null, PS, null],
+                    [null, null, PS]];
+
+    const board_2 = [[null, null, PS],
+                    [null, PS, null],
+                    [PS, null, null]];
+
+    expect(checkDiagonally(PS, board_1)).toBe(true);
+    expect(checkDiagonally(PS, board_2)).toBe(true);
+});

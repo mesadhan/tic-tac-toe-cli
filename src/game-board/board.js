@@ -13,8 +13,7 @@ const board = [
 const number = 3;
 
 const drawGameBoard = () => {
-    //clearConsole();
-
+    clearConsole();
 
     let boardSymbol = '';
     for (let i = 0; i < number; i += 1) {
@@ -78,9 +77,15 @@ const checkColumns = (player, boardIn = board) => {
     return false;
 };
 
+const checkDiagonally = (player, boardIn = board) => {
+    // todo : need to implement it
+    return true;
+};
+
 
 module.exports = {
     drawGameBoard,
     checkRows,
     checkColumns,
+    checkDiagonally,
 };
