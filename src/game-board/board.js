@@ -88,8 +88,11 @@ const checkDiagonally = (player, boardIn = board) => {
     return false;
 };
 
-const checkRestCases = (player, boardIn = board) => {
-   return true;
+const checkAllTheWiningCases = (player, boardIn = board) => {
+    if (checkRows(player, boardIn)) return true;
+    if (checkColumns(player, boardIn)) return true;
+    if (checkDiagonally(player, boardIn)) return true;
+    return false;
 };
 
 
@@ -98,5 +101,5 @@ module.exports = {
     checkRows,
     checkColumns,
     checkDiagonally,
-    checkRestCases,
+    checkAllTheWiningCases,
 };

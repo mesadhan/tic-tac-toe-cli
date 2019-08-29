@@ -3,7 +3,7 @@ const {
     checkRows,
     checkColumns,
     checkDiagonally,
-    checkRestCases,
+    checkAllTheWiningCases,
 } = require('../game-board/board');
 
 
@@ -87,7 +87,7 @@ test('check diagonally wins in board', () => {
 });
 
 
-test('check rest of the wining possibility', () => {
+test('check all the wining cases', () => {
 
     let PS = 'X';
     const board_1 = [[PS, PS, PS],
@@ -102,7 +102,7 @@ test('check rest of the wining possibility', () => {
                      [null, PS, null],
                      [PS, null, null]];
 
-    expect(checkRestCases(PS, board_1)).toBe(true);
-    expect(checkRestCases(PS, board_2)).toBe(true);
-    expect(checkRestCases(PS, board_3)).toBe(true);
+    expect(checkAllTheWiningCases(PS, board_1)).toBe(true);
+    expect(checkAllTheWiningCases(PS, board_2)).toBe(true);
+    expect(checkAllTheWiningCases(PS, board_3)).toBe(true);
 });
