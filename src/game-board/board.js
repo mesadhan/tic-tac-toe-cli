@@ -47,10 +47,10 @@ const drawGameBoard = () => {
 };
 
 const checkRows = (player, boardIn = board) => {
-    for (let i = 0; i < number; i += 1) {
+    for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
         let check = true;
-        for (let j = 0; j < number; j += 1) {
-            if (boardIn[i][j] !== player) {
+        for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
+            if (boardIn[rowIndex][columnIndex] !== player) {
                 check = false;
             }
         }
@@ -62,10 +62,10 @@ const checkRows = (player, boardIn = board) => {
 };
 
 const checkColumns = (player, boardIn = board) => {
-    for (let i = 0; i < number; i += 1) {
+    for (let rowIndex = 0; rowIndex < number; rowIndex += 1) {
         let check = true;
-        for (let j = 0; j < number; j += 1) {
-            if (boardIn[j][i] !== player) {
+        for (let columnIndex = 0; columnIndex < number; columnIndex += 1) {
+            if (boardIn[columnIndex][rowIndex] !== player) {
                 check = false;
             }
         }
