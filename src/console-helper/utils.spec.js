@@ -1,4 +1,9 @@
-const {getReadlineInterface, getPlayer1, getPlayer2, getPlayerNo} = require('../console-helper/utils');
+const {getReadlineInterface,
+    getPlayer1,
+    getPlayer2,
+    getPlayerInformation,
+} = require('../console-helper/utils');
+
 
 test('define readline interface', async () => {
 
@@ -6,22 +11,22 @@ test('define readline interface', async () => {
     expect(data).toBeDefined();
 });
 
-test('get Player 1 Or X', () => {
+test('get player 1 Or X', () => {
     let data = getPlayer1();
     expect(data).toBe('X');
 });
 
-test('get Player 2 Or O', () => {
+test('get player 2 Or O', () => {
     let data = getPlayer2();
     expect(data).toBe('O');
 });
 
-test('get Player No. 1', () => {
-    let data = getPlayerNo('X');
+test('get player No. 1', () => {
+    let data = getPlayerInformation(getPlayer1());
     expect(data).toBe(1);
 });
 
-test('get Player No. 2', () => {
-    let data = getPlayerNo('O');
+test('get player No. 2', () => {
+    let data = getPlayerInformation(getPlayer2());
     expect(data).toBe(2);
 });
