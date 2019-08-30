@@ -9,13 +9,13 @@ const {
 } = require('../console-helper/utils');
 
 
-test(' taking board size form user ', () => {
+test(' taking board size from user ', () => {
     let player = getPlayer1();
     takeRow(player);
     takeColumn(player);
 });
 
-test(' taking player1 X row & column form user ', () => {
+test(' taking player1 X row & column from user ', () => {
     let player = getPlayer1();
     takeRow(player);
     takeColumn(player);
