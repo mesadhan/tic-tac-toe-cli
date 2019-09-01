@@ -3,96 +3,120 @@ const {
     clearConsole,
     getPlayer1,
     getPlayer2,
-    getPlayerNo
+    getPlayerInformation
 } = require('../console-helper/utils');
 
 const {
-    placeSymbolInBoard,
+    placePlayerSymbolInGameBoard,
     drawGameBoard,
-    checkAllTheWiningCases,
-    setDefaultBoardSize,
-    computeComputerTurn,
-    getBoard,
+    checkAllTheWinningCases,
+    gameBoardSetup,
+    computeComputerTurns,
+    getGameBoard,
     computerStepCorrection,
 } = require('../game-board/board');
+
 
 let row = null;
 let column = null;
 const readlineInterface = getReadlineInterface();
 let boardSize = null;
 
-let takeInputForBoard = () => {
-
+/**
+ * Ask Player for Game Board Size
+ */
+let takeBoardSize = () => {
     readlineInterface.question(`[Enter Game Board Size]:- `, (givenBoardSize) => {
         boardSize = givenBoardSize;
 
-        // todo : need validation
-        setDefaultBoardSize(boardSize);
-
-        takeInputForRow(getPlayer1());
-    });
-};
-let takeInputForRow = (player) => {
-    let playerNumber = getPlayerNo(player);
-    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1 ..${boardSize}] :- `, (givenRow) => {
-
-        // todo : need validation
-        row = parseInt(givenRow) - 1;
-        takeInputForColumn(player);
+        gameBoardSetup(boardSize);
+        takeRow(getPlayer1());
     });
 };
 
-const takeInputForColumn = (player) => {
-    let playerNumber = getPlayerNo(player);
-    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1 ...${boardSize}] :- `, (givenColumn) => {
+/**
+ * Ask Player for Row Position
+ * @param player
+ */
+let takeRow = (player) => {
+    let playerNumber = getPlayerInformation(player);
+    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Row [1 ... ${boardSize}] :- `, (givenRow) => {
 
-        // todo : need validation
-        column = parseInt(givenColumn) - 1;
-        processRowColumnAndPlayerInformation(row, column, player)
+       if(givenRow >= 1 && givenRow <= boardSize){
+           row = parseInt(givenRow) - 1;
+           takeColumn(player);
+       }else {
+           takeRow(player);
+       }
+    });
+};
+
+/**
+ * Ask Player for Column Position
+ * @param player
+ */
+const takeColumn = (player) => {
+    let playerNumber = getPlayerInformation(player);
+    readlineInterface.question(`[Player ${playerNumber} = ${player}] - Enter Column [1 ... ${boardSize}] :- `, (givenColumn) => {
+
+        if(givenColumn >= 1 && givenColumn <= boardSize){
+            column = parseInt(givenColumn) - 1;
+            processRowColumnAndPlayerInformation(row, column, player)
+        }else {
+            takeColumn(player);
+        }
 
     });
 };
 
-
+/**
+ * After taken input, process row, column and player information
+ * @param player
+ */
 const processRowColumnAndPlayerInformation = (row, column, player) => {
 
+    placePlayerSymbolInGameBoard(row, column, player);          // Put Player Symbol in Board
+    console.log(drawGameBoard());                               // Draw game board in Console
+    let playerNo = getPlayerInformation(player);
 
-    placeSymbolInBoard(row, column, player);        // Put Player Symbol in Board
-    console.log(drawGameBoard());          // Draw game board in Console
-
-    let playerNo = getPlayerNo(player);
-
-    if (checkAllTheWiningCases(player)) {
-        console.log(`\nPlayer ${playerNo} - ${player} Wins The Game!`);
+    if (checkAllTheWinningCases(player)) {
+        console.log(`\nPlayer ${playerNo} - ${player} | Wins The Game!`);
         readlineInterface.close();
         return;
     }
+
     if (player === getPlayer1()) {
 
-        let board = getBoard();
-        let value = '';
-        try {
-            value = computeComputerTurn(board);
-            processRowColumnAndPlayerInformation(value.rowIndex, value.columnIndex, 'O')
-        }catch (e) {
-            value = computerStepCorrection(board);
-            processRowColumnAndPlayerInformation(value.rowIndex, value.columnIndex, 'O')
-        }
+        playComputer();                     // Computer make steps, After done Player 1 steps.
 
     } else {
-        takeInputForRow(getPlayer1());
+        takeRow(getPlayer1());
     }
-
 };
 
+/**
+ * Computer Turn, Process then make steps
+ */
+const playComputer = () => {
+    let gameBoard = getGameBoard();
+    let computerStep = null;
+    try {
+        computerStep = computeComputerTurns(gameBoard);
+        processRowColumnAndPlayerInformation(computerStep.rowIndex, computerStep.columnIndex, getPlayer2())
+    }catch (e) {
+        computerStep = computerStepCorrection(gameBoard);
+        processRowColumnAndPlayerInformation(computerStep.rowIndex, computerStep.columnIndex, getPlayer2())
+    }
+};
 
 const controlPanel = () => {
     clearConsole();
-    takeInputForBoard();
+    takeBoardSize();
 };
+
 
 module.exports = {
     controlPanel,
-    takeInputForRow,
-    takeInputForColumn,
+    takeRow,
+    takeColumn,
 };

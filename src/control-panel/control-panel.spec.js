@@ -1,12 +1,23 @@
-const {takeInputForRow, takeInputForColumn} = require('../control-panel/control-panel');
+const {
+    takeRow,
+    takeColumn
+} = require('../control-panel/control-panel');
 
-test(' taking Player1 X row & column input form user ', () => {
-    takeInputForRow('X');
-    takeInputForColumn('X');
+const {
+    getPlayer1,
+    getPlayer2,
+} = require('../console-helper/utils');
+
+
+test(' taking board size from user ', () => {
+    let player = getPlayer1();
+    takeRow(player);
+    takeColumn(player);
 });
 
-test(' taking Player2 O row & column input form user ', () => {
-    takeInputForRow('O');
-    takeInputForColumn('O');
+test(' taking player1 X row & column from user ', () => {
+    let player = getPlayer1();
+    takeRow(player);
+    takeColumn(player);
 });
 
