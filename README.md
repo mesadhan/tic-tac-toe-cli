@@ -18,6 +18,12 @@ Console Base Game.
 
     npm test
 
+> Run Application
+    
+    npm start    
+    
+    
+
 > CLI configuration so that run it locally anywhere.
 
     npm link
